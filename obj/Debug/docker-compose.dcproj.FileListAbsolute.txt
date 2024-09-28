@@ -11,3 +11,4 @@
 /Users/metinkara/Projects/rent-car-api/obj/Debug/docker-compose.dcproj.AssemblyReference.cache
 /Users/metinkara/Projects/rent-car-api/obj/Debug/docker-compose.dcproj.CoreCompileInputs.cache
 /Users/metinkara/Projects/rent-car-api/obj/Debug/docker-compose.dcproj.CopyComplete
+/Users/metinkara/Documents/Github/rent-car-api/obj/Debug/docker-compose.dcproj.CoreCompileInputs.cache
