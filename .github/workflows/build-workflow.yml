@@ -1,0 +1,67 @@
+name: Rent Site Build
+
+on:
+  push:
+    branches:
+      - main
+      - release/**
+      - dev/**
+      - test/**
+    tags:
+      - "*"
+
+env:
+  IMAGE_NAME: 605134429311.dkr.ecr.us-east-1.amazonaws.com/rent-site
+  IMAGE_ID: container_image
+  APP_VERSION: 0.1.0
+
+jobs:
+  find_env:
+    runs-on: ubuntu-latest
+    outputs:
+      app_env: ${{ steps.find.outputs.app_env }}
+      app_version: ${{ steps.find.outputs.app_version }}
+    steps:
+      - id: find
+        run: |
+          APP_ENV=.production
+          [[ "${{ github.ref }}" == "refs/heads/main" ]] && APP_ENV=.production
+          [[ "${{ github.ref }}" == "refs/tags/"* ]] && APP_ENV=.production
+          [[ "${{ github.ref }}" == "refs/heads/release/"* ]] && APP_ENV=.preprod
+          [[ "${{ github.ref }}" == "refs/heads/test/"* ]] && APP_ENV=.test
+
+          echo "app_env=$APP_ENV" >> "$GITHUB_OUTPUT"
+
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's/refs\/heads\///' | sed -e 's/refs\/tags\///' | tr / _)
+          [[ "${{ github.ref }}" == "refs/heads/main" ]] && VERSION="latest"
+          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+
+          EPOCHTIME=$(date +"%s")
+
+          [ "$VERSION" == "main" ] && VERSION="preprod-$EPOCHTIME"
+          echo VERSION=$VERSION
+          echo "app_version=$VERSION-$EPOCHTIME" >> "$GITHUB_OUTPUT"
+
+  Rent-Site-Build:
+    runs-on: ubuntu-latest
+    needs: find_env
+    steps:
+      - name: Checkout repository and submodules
+        uses: actions/checkout@v3
+      - name: Configure AWS Credential
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: Login ECR
+        run: |
+          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 605134429311.dkr.ecr.us-east-1.amazonaws.com/rent-site
+      - name: docker build
+        run: |
+          echo ${{ needs.find_env.outputs.app_env }}
+          echo ${{ needs.find_env.outputs.app_version }}
+          echo docker build --build-arg APP_NODE_ENV=${{ needs.find_env.outputs.app_env }} --rm -f "Dockerfile" -t "${{ env.IMAGE_NAME }}:${{ needs.find_env.outputs.app_version }}" .
+          docker build --build-arg APP_NODE_ENV=${{ needs.find_env.outputs.app_env }} --rm -f "Dockerfile" -t "${{ env.IMAGE_NAME }}:${{ needs.find_env.outputs.app_version }}" .
+      - name: docker push
+        run: docker push "${{ env.IMAGE_NAME }}:${{ needs.find_env.outputs.app_version }}"
