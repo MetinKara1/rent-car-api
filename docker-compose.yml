@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  rent-car-api:
+    image: ${DOCKER_REGISTRY-}rentcarapi-v2
+    platform: linux/amd64  # Platform belirtildi
+    build:
+      context: .
+      dockerfile: rent-car-api/Dockerfile
+      

@@ -1,0 +1,36 @@
+name: dockercompose15546491633364893693
+services:
+  rent-car-api:
+    build:
+      context: /Users/metinkara/Projects/rent-car-api
+      dockerfile: rent-car-api/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:80
+    image: rentcarapi
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 80
+        published: "80"
+        protocol: tcp
+      - mode: ingress
+        target: 80
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /Users/metinkara/.aspnet/https
+        target: /root/.aspnet/https
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: /Users/metinkara/.microsoft/usersecrets
+        target: /root/.microsoft/usersecrets
+        read_only: true
+        bind:
+          create_host_path: true
+networks:
+  default:
+    name: dockercompose15546491633364893693_default

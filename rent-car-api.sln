@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1706.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rent-car-api", "rent-car-api\rent-car-api.csproj", "{AFDAB39E-14B9-4ABB-932E-4CCA646AFD69}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{EAD7BE0F-A41B-4BFE-A26B-22CE83393222}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AFDAB39E-14B9-4ABB-932E-4CCA646AFD69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFDAB39E-14B9-4ABB-932E-4CCA646AFD69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFDAB39E-14B9-4ABB-932E-4CCA646AFD69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFDAB39E-14B9-4ABB-932E-4CCA646AFD69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAD7BE0F-A41B-4BFE-A26B-22CE83393222}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAD7BE0F-A41B-4BFE-A26B-22CE83393222}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAD7BE0F-A41B-4BFE-A26B-22CE83393222}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAD7BE0F-A41B-4BFE-A26B-22CE83393222}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D7BF3C0A-5743-454B-921B-E77F1EDF72B9}
+	EndGlobalSection
+EndGlobal
