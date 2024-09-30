@@ -61,7 +61,7 @@ jobs:
         run: |
           echo ${{ needs.find_env.outputs.app_env }}
           echo ${{ needs.find_env.outputs.app_version }}
-          echo docker build --build-arg APP_NODE_ENV=${{ needs.find_env.outputs.app_env }} --rm -f "Dockerfile" -t "${{ env.IMAGE_NAME }}:${{ needs.find_env.outputs.app_version }}" .
-          docker build --build-arg APP_NODE_ENV=${{ needs.find_env.outputs.app_env }} --rm -f "Dockerfile" -t "${{ env.IMAGE_NAME }}:${{ needs.find_env.outputs.app_version }}" .
+          echo docker build --build-arg APP_NODE_ENV=${{ needs.find_env.outputs.app_env }} --rm -f "rent-car-api/Dockerfile" -t "${{ env.IMAGE_NAME }}:${{ needs.find_env.outputs.app_version }}" .
+          docker build --build-arg APP_NODE_ENV=${{ needs.find_env.outputs.app_env }} --rm -f "rent-car-api/Dockerfile" -t "${{ env.IMAGE_NAME }}:${{ needs.find_env.outputs.app_version }}" .
       - name: docker push
         run: docker push "${{ env.IMAGE_NAME }}:${{ needs.find_env.outputs.app_version }}"
