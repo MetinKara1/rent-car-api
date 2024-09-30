@@ -9,7 +9,7 @@ on:
       - test/**
     tags:
       - "*"
-
+      
 env:
   IMAGE_NAME: 605134429311.dkr.ecr.us-east-1.amazonaws.com/rent-site
   IMAGE_ID: container_image
